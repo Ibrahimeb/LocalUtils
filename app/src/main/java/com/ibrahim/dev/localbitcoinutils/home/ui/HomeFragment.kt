@@ -25,11 +25,6 @@ class HomeFragment : Fragment() {
         viewModel.getPriceByEquiation("btc_in_usd")
     }
 
-    private fun subscribeLiveData(){
-        viewModel.price.observe(this, Observer {
-            binding.textViewPrice.text = it
-        })
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +32,11 @@ class HomeFragment : Fragment() {
         ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
+    }
+    private fun subscribeLiveData(){
+        viewModel.price.observe(viewLifecycleOwner, Observer {
+            binding.textViewPrice.text = it
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
